@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Choose your preferred background color */
+        }
+        div {
+            border: 4px solid black;
+            text-align: center;
+            margin: 50px;
+            padding: 30px;
+            background-color: darkgrey;
+            margin: 100px;
+        border-radius: 10px;       }
+        .error {
+            color: red;
+        }
+        input:required, select:required, textarea:required {
+            border: 2px solid red;
+        }
+        input:focus, select:focus, textarea:focus {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <h1>Student Registration Form</h1>
+    <form id="registrationForm" onsubmit="return validateForm()" novalidate>
+        <label for="studentName">Student Name:</label><br>
+        <input type="text" id="studentName" name="studentName" maxlength="20" required pattern="[A-Za-z\s]+" title="Alphabets only" placeholder="first name"  style="padding: 8px; border-radius: 4px;">
+        <input type="text" id="studentName" name="studentName" maxlength="20" required pattern="[A-Za-z\s]+" title="Alphabets only" placeholder="first name" style="padding: 8px; border-radius: 4px;">
+        <input type="text" id="studentName" name="studentName" maxlength="20" required pattern="[A-Za-z\s]+" title="Alphabets only" placeholder="first name"style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="birthDate">Birth Date:</label><br>
+        <input type="date" id="birthDate" name="birthDate" required style="padding: 8px; border-radius: 4px;">
+        <input type="month" id="birthDate" name="birthDate" required style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required style="padding: 8px; border-radius: 4px;">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <br><br>
+
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address" maxlength="250" required style="padding: 8px; border-radius: 4px; padding-left: 260px;"><br><br>
+        <input type="text" id="address" name="address" maxlength="250" required style="padding: 8px; border-radius: 4px;padding-left: 260px;"><br><br>
+        <input type="text" id="address" name="address" maxlength="250" required style="padding: 8px; border-radius: 4px;padding-left: 260px;"><br><br>
+        <br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" maxlength="50" required style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" maxlength="50" required style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode" maxlength="5" required pattern="\d{5}" title="Five digit postal code" style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" maxlength="250" required style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="text" id="mobileNumber" name="mobileNumber" maxlength="12" required pattern="\d{12}" title="Twelve digit mobile number" style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" maxlength="12" pattern="\d{12}" title="Twelve digit phone number (optional) " style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="workNumber">Work Number:</label>
+        <input type="text" id="workNumber" name="workNumber" maxlength="12" pattern="\d{12}" title="Twelve digit work number (optional)" style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" maxlength="150" required style="padding: 8px; border-radius: 4px;">
+        <br><br>
+
+        <label for="courses">Courses:</label>
+        <select id="courses" name="courses" required style="padding: 8px; border-radius: 4px;">
+            <option value="">Select</option>
+            <option value="Course1">Course1</option>
+            <option value="Course2">Course2</option>
+            <option value="Course3">Course3</option>
+            <option value="Course4">Course4</option>
+            <option value="Course5">Course5</option>
+            <option value="Course6">Course6</option>
+            <option value="Course7">Course7</option>
+            <option value="Course8">Course8</option>
+            <option value="Course9">Course9</option>
+            <option value="Course10">Course10</option>
+        </select>
+        <br><br>
+
+        <label for="comments">Additional Comments:</label>
+        <textarea id="comments" name="comments" maxlength="500" style="padding: 8px; border-radius: 4px;"></textarea>
+        <br><br>
+
+        <input type="submit" value="Submit" style="padding: 8px; border-radius: 4px;">
+        <input type="button" value="Clear Fields" onclick="clearFields()" style="padding: 8px; border-radius: 4px;">
+    </form>
+
+    <script>
+        function validateForm() {
+            const birthDate = document.getElementById('birthDate').value;
+            const birthDateParts = birthDate.split('-');
+            const birthYear = parseInt(birthDateParts[0], 10);
+            const currentYear = new Date().getFullYear();
+
+            if (currentYear - birthYear > 50) {
+                alert('Birth year must be within the last 50 years.');
+                return false;
+            }
+
+            const form = document.getElementById('registrationForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                alert('Please correct the errors in the form.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function clearFields() {
+            document.getElementById('registrationForm').reset();
+        }
+    </script>
+    </div>
+</body>
+</html>
